@@ -3,10 +3,21 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { JWT_SECRET } = process.env;
 
-// Registration
 exports.register = async (req, res) => {
+  console.log('Request received at /api/users/register:', req.body); // Log the incoming request
+
   const { name, surname, email, phone, password, address } = req.body;
+  if (!name || !surname || !email || !password || !phone || !address) {
+    console.log('Validation failed: Missing fields');
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
   try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       name,
@@ -17,15 +28,18 @@ exports.register = async (req, res) => {
       address,
     });
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
-    res.status(400).json({ message: 'Error creating user' });
+    res.status(500).json({ message: 'Failed to register user' });
   }
 };
 
-// Login
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
+
   try {
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -34,6 +48,6 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
     res.status(200).json({ token });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Failed to log in' });
   }
 };
