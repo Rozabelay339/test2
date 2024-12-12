@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const data = {
       name: document.getElementById('name').value,
-      surname: document.getElementById('lastName').value,
+      lastName: document.getElementById('lastName').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
       password: document.getElementById('password').value,
