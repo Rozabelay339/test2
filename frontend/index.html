@@ -1,34 +1,48 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TODO App</title>
+  <title>Registration & Todo App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <h1>TODO Application</h1>
-
+  <section id="registrationSection">
+    <h2>Register</h2>
     <form id="registrationForm">
-      <input type="text" id="firstName" placeholder="firstName" required>
-      <input type="text" id="lastName" placeholder="lastName" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="tel" id="phone" placeholder="Phone" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <input type="text" id="address" placeholder="Address" required>
+      <label for="name">Name</label>
+      <input type="text" id="name" required><br>
+
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" required><br>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required><br>
+
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" required><br>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required><br>
+
+      <label for="address">Address</label>
+      <input type="text" id="address" required><br>
+
       <button type="submit">Register</button>
     </form>
+  </section>
 
-    <div id="todoList">
-      <h2>TODOs</h2>
-      <form id="todoForm">
-        <input type="text" id="todoInput" placeholder="New task" required>
-        <button type="submit">Add Task</button>
-      </form>
-      <ul id="todos"></ul>
-    </div>
-  </div>
+  <section id="todoSection">
+    <h2>Todo List</h2>
+    <form id="todoForm">
+      <label for="todoInput">New Todo</label>
+      <input type="text" id="todoInput" required><br>
+      <button type="submit">Add Todo</button>
+    </form>
+
+    <ul id="todos"></ul>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

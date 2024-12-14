@@ -81,3 +81,21 @@ router.put('/todos/:id', authenticateUser, todoController.updateTodo);
 
 // Delete a todo (protected, matches DELETE /api/todos/:id)
 router.delete('/todos/:id', authenticateUser, todoController.deleteTodo);
+
+TODO-app/
+├── backend/ 
+│  ├── config/
+│  │   └── db.js             
+│  ├── controllers/
+│  │   └── todoController.js 
+│  ├── models/
+│  │   └── Todo.js           
+│  ├── routes/
+│  │   └── todoRoutes.js     
+│  └── index.js              
+│  ├── index.html            
+│  ├── style.css             
+│  ├── Main.js               
+├── node_modules/            
+├── package.json             
+└── .env 
