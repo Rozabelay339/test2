@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const todoForm = document.getElementById('todoForm');
   const todosList = document.getElementById('todos');
 
-  axios.get('http://localhost:5000/api/todos/todos', {
+  axios.get('http://localhost:5000/api/todos', {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     },
   })
     .then(response => {
@@ -18,37 +18,41 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => {
       console.error('Error fetching todos:', error.response?.data || error.message);
+      alert(error.response?.data.message || "Failed to fetch todos");
     });
+  
 
-  registrationForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const data = {
-      name: document.getElementById('name').value,
-      lastName: document.getElementById('lastName').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      password: document.getElementById('password').value,
-      address: document.getElementById('address').value,
-    };
-
-    try {
-      const response = await fetch('http://localhost:5000/api/users/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert('User registered successfully');
-      } else {
-        alert(`Error: ${result.message}`);
+    registrationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+    
+      const data = {
+        name: document.getElementById('name').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        password: document.getElementById('password').value,
+        address: document.getElementById('address').value,
+      };
+    
+      try {
+        const response = await fetch('http://localhost:5000/api/users/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+    
+        const result = await response.json();
+        if (response.ok) {
+          alert('User registered successfully');
+        } else {
+          alert(`Error: ${result.message}`);
+        }
+      } catch (error) {
+        console.error('Error:', error.response?.data || error.message);
+        alert('Registration failed');
       }
-    } catch (error) {
-      console.error('Error:', error.response?.data || error.message);
-    }
-  });
+    });
+    
 
   todoForm.addEventListener('submit', async (e) => {
     e.preventDefault();
